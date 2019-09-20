@@ -35,19 +35,20 @@ $(document).ready(function() {
         decrement()
 
         //question/answer populated - placeholder nested arrays and nested loops??
-        
-        $("#question").text(questions[0]);
-        $("#first-ans").text(answers[0][0]);
-        $("#second-ans").text(answers[0][1]);
-        $("#third-ans").text(answers[0][2]);
-        $("#fourth-ans").text(answers[0][3]);
+
+        $("#question").text(questions[questionCount]);
+        $("#first-ans").text(answers[questionCount][0]);
+        $("#second-ans").text(answers[questionCount][1]);
+        $("#third-ans").text(answers[questionCount][2]);
+        $("#fourth-ans").text(answers[questionCount][3]);
 
         //if answer button clicked answerselected = true 
         $(".answer").on("click", function() {
             answerSelected = true;
             console.log("answer chosen");
-            checkAnswer();
             stop();
+            checkAnswer();
+            
 
         })
 
@@ -77,9 +78,15 @@ $(document).ready(function() {
 
     function checkAnswer() {
         if (answerSelected === true) {
-
+            //compare selected answer to correct answers array
+            //if answer is correct show congratulatory screen - 7 seconds - increment correct
+            //if answer is incorrect show correct answer - 7 seconds - increment incorrect
+            //increment questionCount
             console.log("answer chosen")
         } else {
+            //if no answer is selected show correct answer - 7 seconds
+            //increment unanswered
+            //increment questionCount
             console.log("Time's up!")
         }
     }
@@ -92,6 +99,8 @@ $(document).ready(function() {
 //if player selects wrong answer show screen telling them the answer is wrong and display correct answer
 //if the timer runs out before the player selects an answer - tell player time has run out and display correct answer
 //after a few seconds show next question - repeat
+
+//if questionCount = number of questions - show final screen
 //on final screen show how many correct and incorrect answers player gave and give option to restart game
 
 })
