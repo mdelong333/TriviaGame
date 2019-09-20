@@ -1,19 +1,29 @@
 $(document).ready(function() {
-    //variables for correct and incorrect answers to be displayed at end of game
+    $(".answer").hide();
+    
+    //variables for types of answers to be displayed at end of game
     var correct = 0;
     var incorrect = 0;
+    var unanswered = 0;
 
-    //variable for timer and interval
+    //variable for timer, interval, and number of questions
     var timer = 0;
     var interval;
+    var questionCount = 0;
 
-    //array of objects? quetions with array of answers per question? I'll come back to this
-    var questions = [];
+    //array of objects? questions with array of answers per question? I'll come back to this
+    var questions = ["q1", "q2", "q3", "q4"];
+    var answers = [["a", "b", "c", "d"], ["a", "b", "c", "d"], ["a", "b", "c", "d"], ["a", "b", "c", "d"]];
+    var correctAnswers = [];
+
+
+    var answerSelected = false;
     
     //game begins on click of start button
-    $("#start").on("click", function startGame() {
+    $("#start").on("click", function startQuiz() {
         //hides start button after clicked
         $("#start").hide();
+        $(".answer").show();
 
         clearInterval(interval);
         interval = setInterval(decrement, 1000);
@@ -21,15 +31,31 @@ $(document).ready(function() {
         //sets timer to 30 seconds
         timer = 30;
 
-        //function counts down timer and logs times up to console
+        //function counts down timer and logs times up to console on 0
         decrement()
 
-        //question/answer populated - placeholder
-        $("#question").text("Question 1");
-        $("#first-ans").text("Answer 1");
-        $("#second-ans").text("Answer 2");
-        $("#third-ans").text("Answer 3");
-        $("#fourth-ans").text("Answer 4");
+        //question/answer populated - placeholder nested arrays and nested loops??
+        
+        $("#question").text(questions[0]);
+        $("#first-ans").text(answers[0][0]);
+        $("#second-ans").text(answers[0][1]);
+        $("#third-ans").text(answers[0][2]);
+        $("#fourth-ans").text(answers[0][3]);
+
+        //if answer button clicked answerselected = true 
+        $(".answer").on("click", function() {
+            answerSelected = true;
+            console.log("answer chosen");
+            checkAnswer();
+            stop();
+
+        })
+
+
+        //if answer is correct display congratulations
+        //if answer is incorrect tell player and display correct answer
+        //if no answer selected tell player time's up and display correct answer
+       
 
 
     });
@@ -40,7 +66,6 @@ $(document).ready(function() {
         $("#timer").text(timer);
 
         if (timer === 0) {
-            console.log("time's up!");
             stop()
         }
     }
@@ -50,9 +75,17 @@ $(document).ready(function() {
         clearInterval(interval);
     }
 
+    function checkAnswer() {
+        if (answerSelected === true) {
 
-//create html element populated with a question
-//create html elements populated with answers
+            console.log("answer chosen")
+        } else {
+            console.log("Time's up!")
+        }
+    }
+
+
+
 //only one answer can be selected per question
 //timer counts down on each question 
 //if player selects correct answer show screen congratulating them
