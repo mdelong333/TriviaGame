@@ -36,27 +36,55 @@ $(document).ready(function() {
         }
     ];
     
-
-    var answerSelected = false;
     
-    
+    //function to load questions on game start
     function questions() {
+        //clear and set interval for timer
+        clearInterval(interval);
+        interval = setInterval(decrement, 1000);
+        timer = 30;
+
+        //run function decrement to count down
+        decrement();
+
         var question = qAndA[questionCount].question;
         var answerOptions = qAndA[questionCount].answers;
 
+        //generates html for questions and answers
         $("#timer").html(timer);
-        $("#game-section").html("<h2>" + question + "</h2>");
+        $("#game-section").html(`<h2>${question}</h2>
+            ${answers(answerOptions)}
+        `);
     }
 
-    function answers(answers) {
-        var choice = "";
+    //functions to loop through and list answers based on question number
+    function answers(answerOptions) {
+        var userChoice = "";
 
-        for () {
-
+        for (var a = 0; a < answerOptions.length; a++) {
+            userChoice += `<p class="userChoice" data-answer="${answerOptions[a]}">${answerOptions[a]}</p>`;
         }
+
+        return userChoice;
     }
     
+     //function to count down time
+     function decrement() {
+        timer--;
+        $("#timer").text(timer);
 
+        if (timer === 0) {
+            stop();
+            console.log("Time's up!");
+        }
+    }
+
+    //function stops countdown at 0
+    function stop() {
+        clearInterval(interval);
+    }
+    
+    questions();
 
     //only one answer can be selected per question
     //timer counts down on each question 
