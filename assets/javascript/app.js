@@ -5,7 +5,7 @@ $(document).ready(function() {
     var unanswered = 0;
 
     //variable for timer, interval, and number of questions
-    var timer = 30;
+    var timer = 0;
     var interval;
     var questionCount = 0;
 
@@ -36,13 +36,12 @@ $(document).ready(function() {
         }
     ];
     
-    
     //function to load questions on game start
     function questions() {
         //clear and set interval for timer
         clearInterval(interval);
         interval = setInterval(decrement, 1000);
-        timer = 30;
+        timer = 6;
 
         //run function decrement to count down
         decrement();
@@ -59,31 +58,61 @@ $(document).ready(function() {
 
     //functions to loop through and list answers based on question number
     function answers(answerOptions) {
-        var userChoice = "";
+        var userChoiceOptions = "";
 
         for (var a = 0; a < answerOptions.length; a++) {
-            userChoice += `<p class="userChoice" data-answer="${answerOptions[a]}">${answerOptions[a]}</p>`;
+            userChoiceOptions += `<button class="userChoice" data-answer="${answerOptions[a]}">${answerOptions[a]}</button>`;
         }
 
-        return userChoice;
+        return userChoiceOptions;
     }
     
-     //function to count down time
-     function decrement() {
+    //function to count down time
+    function decrement() {
         timer--;
+        
         $("#timer").text(timer);
 
         if (timer === 0) {
             stop();
-            console.log("Time's up!");
+            unanswered++;
         }
     }
 
     //function stops countdown at 0
     function stop() {
         clearInterval(interval);
+        nextQuestion();
+    }
+
+    //function to move to next question
+    function nextQuestion() {
+
+        if (qAndA.length -1 === questionCount) {
+            console.log("Game over");
+
+        } else {
+            questionCount++;
+            questions();
+        };
+        
     }
     
+    $(document).on("click", ".userChoice", function() {
+        var userChoice = $(this).attr("data-answer")
+        var correctAnswer = qAndA[questionCount].correctAnswer;
+        
+        if (correctAnswer === userChoice) {
+            correct++;
+            nextQuestion();
+            console.log("correct: ", correct);
+        } else {
+            incorrect++;
+            nextQuestion();
+            console.log("incorrect: ", incorrect);
+        };
+    })
+
     questions();
 
     //only one answer can be selected per question
