@@ -59,7 +59,7 @@ $(document).ready(function() {
         //clear and set interval for timer
         clearInterval(interval);
         interval = setInterval(decrement, 1000);
-        timer = 5;
+        timer = 31;
 
         //run function decrement to count down
         decrement();
