@@ -18,6 +18,12 @@ $(document).ready(function() {
         },
 
         { 
+            question: "Which slasher movie features a young Johnny Depp in a crop top?", 
+            answers: ["A Nightmare on Elm Street", "Halloween", "Silent Night, Deadly Night", "The House on Sorrority Row"],
+            correctAnswer: "A Nightmare on Elm Street",
+        },
+
+        { 
             question: "What is the name of the Clive Barker novella that is the basis for Hellraiser?", 
             answers: ["Coldheart Canyon", "The Hellbound Heart", "Cabal", "Books of Blood"],
             correctAnswer: "The Hellbound Heart",
@@ -30,18 +36,29 @@ $(document).ready(function() {
         },
 
         {
+            question: "Which 80s zombie movie includes the line 'I like it spooky'?",
+            answers: ["Night of the Creeps", "Day of the Dead", "Return of the Living Dead", "The Beyond"],
+            correctAnswer: "Return of the Living Dead",
+        },
+
+        {
             question: "Which movie in the Friday the 13th franchise features an abundance of crop tops?",
             answers: ["Friday the 13th: The Final Chapter", "Jason Goes to Hell: The Final Friday", "Freddy vs Jason", "Jason X"],
             correctAnswer: "Jason X",
         }
     ];
+
+    //to start game press start button
+    $(document).on("click", "#start", function() {
+        questions();
+    })
     
     //function to load questions on game start
     function questions() {
         //clear and set interval for timer
         clearInterval(interval);
         interval = setInterval(decrement, 1000);
-        timer = 6;
+        timer = 31;
 
         //run function decrement to count down
         decrement();
@@ -67,7 +84,7 @@ $(document).ready(function() {
         return userChoiceOptions;
     }
     
-    //function to count down time
+    //function to count down time - increments uanswered questions variable if timer reaches 0 with no answer having been selected
     function decrement() {
         timer--;
         
@@ -82,7 +99,8 @@ $(document).ready(function() {
     //function stops countdown at 0
     function stop() {
         clearInterval(interval);
-        nextQuestion();
+        userAnswerDisplay();
+        setTimeout(nextQuestion, 3 * 1000);
     }
 
     //function to move to next question
@@ -107,11 +125,13 @@ $(document).ready(function() {
         
         if (correctAnswer === userChoice) {
             correct++;
-            nextQuestion();
+            userAnswerDisplay();
+            setTimeout(nextQuestion, 3 * 1000);
             console.log("correct: ", correct);
         } else {
             incorrect++;
-            nextQuestion();
+            userAnswerDisplay();
+            setTimeout(nextQuestion, 3 * 1000);
             console.log("incorrect: ", incorrect);
         };
     })
@@ -121,20 +141,38 @@ $(document).ready(function() {
         var results = `<p>Correct Answers: ${correct}</p>
         <p>Incorrect Answers: ${incorrect}</p>
         <p>Unanswered Questions: ${unanswered}</p>
-        <button>Replay</button>`
+        <button id="replay">Replay</button>`
         $("#game-section").html(results);
     }
 
-    questions();
+    //resets variables and begins with first question
+    $(document).on("click", "#replay", function() {
+        correct = 0;
+        incorrect = 0;
+        unanswered = 0;
+        timer = 0;
+        questionCount = 0;
 
-    //only one answer can be selected per question
-    //timer counts down on each question 
+        questions();
+    })
+
+    //function to show when user selects correct answer
+    function userAnswerDisplay() {
+        
+        var correctAnswer = qAndA[questionCount].correctAnswer
+        if (correctAnswer === qAndA[questionCount].correctAnswer) {
+            $("#game-section").html(`<p>You chose the correct answer!</p>
+            <p>${correctAnswer}</p>`)
+
+        } else {
+            $("#gamer-section").html(`<p>Sorry, wrong answer!</p>
+            <p>The correct answer is: ${correctAnswer}</p>`)
+        }
+    }
+
+    
     //if player selects correct answer show screen congratulating them
     //if player selects wrong answer show screen telling them the answer is wrong and display correct answer
     //if the timer runs out before the player selects an answer - tell player time has run out and display correct answer
     //after a few seconds show next question - repeat
-
-    //if questionCount = number of questions - show final screen
-    //on final screen show how many correct and incorrect answers player gave and give option to restart game
-
 })
