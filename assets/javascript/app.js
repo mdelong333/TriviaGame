@@ -99,13 +99,13 @@ $(document).ready(function() {
     //function stops countdown at 0
     function stop() {
         clearInterval(interval);
-        userAnswerDisplay();
+        userAnswerDisplay("wrong");
         setTimeout(nextQuestion, 3 * 1000);
     }
 
     //function to move to next question
     function nextQuestion() {
-
+        $("#timer").show();
         if (qAndA.length -1 === questionCount) {
             clearInterval(interval);
             finalScreen();
@@ -125,12 +125,12 @@ $(document).ready(function() {
         
         if (correctAnswer === userChoice) {
             correct++;
-            userAnswerDisplay();
+            userAnswerDisplay("correct");
             setTimeout(nextQuestion, 3 * 1000);
             console.log("correct: ", correct);
         } else {
             incorrect++;
-            userAnswerDisplay();
+            userAnswerDisplay("wrong");
             setTimeout(nextQuestion, 3 * 1000);
             console.log("incorrect: ", incorrect);
         };
@@ -157,16 +157,18 @@ $(document).ready(function() {
     })
 
     //function to show when user selects correct answer
-    function userAnswerDisplay() {
-        
+    function userAnswerDisplay(status) {
+        $("#timer").hide();
+
         var correctAnswer = qAndA[questionCount].correctAnswer
-        if (correctAnswer === qAndA[questionCount].correctAnswer) {
+
+        if (status === "correct") {
             $("#game-section").html(`<p>You chose the correct answer!</p>
-            <p>${correctAnswer}</p>`)
+            <p>"${correctAnswer}"</p>`)
 
         } else {
-            $("#gamer-section").html(`<p>Sorry, wrong answer!</p>
-            <p>The correct answer is: ${correctAnswer}</p>`)
+            $("#game-section").html(`<p>Sorry, wrong answer!</p>
+            <p>The correct answer is: "${correctAnswer}"</p>`)
         }
     }
 
