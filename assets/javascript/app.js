@@ -50,6 +50,7 @@ $(document).ready(function() {
 
     //to start game press start button
     $(document).on("click", "#start", function() {
+        $("#start").hide();
         questions();
     })
     
@@ -58,7 +59,7 @@ $(document).ready(function() {
         //clear and set interval for timer
         clearInterval(interval);
         interval = setInterval(decrement, 1000);
-        timer = 31;
+        timer = 5;
 
         //run function decrement to count down
         decrement();
@@ -98,8 +99,8 @@ $(document).ready(function() {
 
     //function stops countdown at 0
     function stop() {
+        userAnswerDisplay("unanswered");
         clearInterval(interval);
-        userAnswerDisplay("wrong");
         setTimeout(nextQuestion, 3 * 1000);
     }
 
@@ -109,9 +110,8 @@ $(document).ready(function() {
         if (qAndA.length -1 === questionCount) {
             clearInterval(interval);
             finalScreen();
-            console.log("Game over");
-
         } else {
+            clearInterval(interval);
             questionCount++;
             questions();
         };
@@ -126,11 +126,13 @@ $(document).ready(function() {
         if (correctAnswer === userChoice) {
             correct++;
             userAnswerDisplay("correct");
+            clearInterval(interval);
             setTimeout(nextQuestion, 3 * 1000);
             console.log("correct: ", correct);
         } else {
             incorrect++;
-            userAnswerDisplay("wrong");
+            userAnswerDisplay("incorrect");
+            clearInterval(interval);
             setTimeout(nextQuestion, 3 * 1000);
             console.log("incorrect: ", incorrect);
         };
@@ -161,20 +163,22 @@ $(document).ready(function() {
         $("#timer").hide();
 
         var correctAnswer = qAndA[questionCount].correctAnswer
-
+        //if player selects correct answer show screen congratulating them
         if (status === "correct") {
             $("#game-section").html(`<p>You chose the correct answer!</p>
             <p>"${correctAnswer}"</p>`)
-
-        } else {
+        } 
+        
+        //if player selects wrong answer show screen telling them the answer is wrong and display correct answer
+        if (status === "incorrect") {
             $("#game-section").html(`<p>Sorry, wrong answer!</p>
+            <p>The correct answer is: "${correctAnswer}"</p>`)
+        } 
+        
+        //if player doesn't select an answer before the time runs out display text telling them time's up and showing the correct answer
+        if (status === "unanswered") {
+            $("#game-section").html(`<p>Time's up!</p>
             <p>The correct answer is: "${correctAnswer}"</p>`)
         }
     }
-
-    
-    //if player selects correct answer show screen congratulating them
-    //if player selects wrong answer show screen telling them the answer is wrong and display correct answer
-    //if the timer runs out before the player selects an answer - tell player time has run out and display correct answer
-    //after a few seconds show next question - repeat
 })
