@@ -20,11 +20,22 @@ h1 {
 }
 
 #start {
+    margin-top: 40px;
     background-color: #5E0A0A;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-color: rgba(245, 245, 245, 0.836);
+}
+
+#start:hover {
+    background-color: whitesmoke;
+    color: #5E0A0A;
+    border-color: #5E0A0A;
 }
 
 h2 {
     color: rgba(245, 245, 245, 0.836);
+    font-family: 'Sunflower', sans-serif;
 }
 
 #timer {
@@ -33,4 +44,23 @@ h2 {
 
 p {
     color: rgba(245, 245, 245, 0.836);
+    font-family: 'Sunflower', sans-serif;
+    font-size: 16pt;
+}
+
+.userChoice {
+    background-color: rgba(245, 245, 245, 0.836);
+    color: #5E0A0A;
+    border: 2px solid #5E0A0A;
+    font-family: 'Sunflower', sans-serif;
+    margin: 20px 5px 5px 5px;
+    padding: 10px;
+    font-family: 'Sunflower', sans-serif;
+    border-radius: 20px;
+}
+
+.userChoice:hover {
+    background-color: #5E0A0A;
+    color: rgba(245, 245, 245, 0.836);
+    border: 2px solid rgba(245, 245, 245, 0.836);
 }

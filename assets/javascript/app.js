@@ -49,14 +49,14 @@ $(document).ready(function() {
     ];
 
     //variable for images to show when a user selects the right answer
-    var correctImages = [{
-
-    }]
+    var correctImages = [
+        
+    ];
 
     //variable for images to show when a user selects the wrong answer
-    var incorrectImages = [{
+    var incorrectImages = [
 
-    }]
+    ];
 
     //to start game press start button
     $(document).on("click", "#start", function() {
