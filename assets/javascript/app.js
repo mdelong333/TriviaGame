@@ -48,6 +48,16 @@ $(document).ready(function() {
         }
     ];
 
+    //variable for images to show when a user selects the right answer
+    var correctImages = [{
+
+    }]
+
+    //variable for images to show when a user selects the wrong answer
+    var incorrectImages = [{
+
+    }]
+
     //to start game press start button
     $(document).on("click", "#start", function() {
         $("#start").hide();
@@ -56,10 +66,11 @@ $(document).ready(function() {
     
     //function to load questions on game start
     function questions() {
+        $("#timer").show();
         //clear and set interval for timer
         clearInterval(interval);
         interval = setInterval(decrement, 1000);
-        timer = 31;
+        timer = 16;
 
         //run function decrement to count down
         decrement();
@@ -138,12 +149,13 @@ $(document).ready(function() {
         };
     })
 
-    //final screen displays quiz results: correct, incorrect, and unanswered questions
+    //final screen displays quiz results: correct, incorrect, and unanswered questions - gives player option to restart
     function finalScreen() {
+        $("#timer").hide();
         var results = `<p>Correct Answers: ${correct}</p>
         <p>Incorrect Answers: ${incorrect}</p>
         <p>Unanswered Questions: ${unanswered}</p>
-        <button id="replay">Replay</button>`
+        <button type="button" class="btn btn-outline-danger" id="replay">Replay</button>`
         $("#game-section").html(results);
     }
 

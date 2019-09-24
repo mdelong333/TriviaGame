@@ -1,0 +1,36 @@
+body {
+    background-image: url(../images/red-texture-background.jpg);
+    background-color: rgb(105, 20, 20);
+    background-repeat: repeat;
+}
+
+.container {
+    width: 50%;
+    text-align: center;
+    margin: 100px auto;
+    background-color: rgb(46, 41, 46);
+    padding: 70px;
+}
+
+h1 {
+    color: black;
+    font-family: 'Special Elite', cursive;
+    font-size: 40pt;
+    text-shadow: 2px 2px 8px white;
+}
+
+#start {
+    background-color: #5E0A0A;
+}
+
+h2 {
+    color: rgba(245, 245, 245, 0.836);
+}
+
+#timer {
+    color: rgba(245, 245, 245, 0.836);
+}
+
+p {
+    color: rgba(245, 245, 245, 0.836);
+}
