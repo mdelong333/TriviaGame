@@ -89,6 +89,8 @@ $(document).ready(function() {
     function nextQuestion() {
 
         if (qAndA.length -1 === questionCount) {
+            clearInterval(interval);
+            finalScreen();
             console.log("Game over");
 
         } else {
@@ -98,6 +100,7 @@ $(document).ready(function() {
         
     }
     
+    //checks users selection for correctness - logs correct or incorrect to console
     $(document).on("click", ".userChoice", function() {
         var userChoice = $(this).attr("data-answer")
         var correctAnswer = qAndA[questionCount].correctAnswer;
@@ -112,6 +115,15 @@ $(document).ready(function() {
             console.log("incorrect: ", incorrect);
         };
     })
+
+    //final screen displays quiz results: correct, incorrect, and unanswered questions
+    function finalScreen() {
+        var results = `<p>Correct Answers: ${correct}</p>
+        <p>Incorrect Answers: ${incorrect}</p>
+        <p>Unanswered Questions: ${unanswered}</p>
+        <button>Replay</button>`
+        $("#game-section").html(results);
+    }
 
     questions();
 
