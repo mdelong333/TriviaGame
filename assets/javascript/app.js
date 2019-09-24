@@ -49,13 +49,7 @@ $(document).ready(function() {
     ];
 
     //variable for images to show when a user selects the right answer
-    var correctImages = [
-        
-    ];
-
-    //variable for images to show when a user selects the wrong answer
-    var incorrectImages = [
-
+    var images = ["./assets/images/ghostface.gif", "./assets/images/johnnydepp.gif", "./assets/images/cenobites.gif", "./assets/images/mrsvorhees.gif", "./assets/images/returnoflivingdead.gif", "./assets/images/jasonxcroptopsinspace.gif" 
     ];
 
     //to start game press start button
@@ -152,10 +146,11 @@ $(document).ready(function() {
     //final screen displays quiz results: correct, incorrect, and unanswered questions - gives player option to restart
     function finalScreen() {
         $("#timer").hide();
-        var results = `<p>Correct Answers: ${correct}</p>
+        var results = ` <button type="button" class="btn btn-outline-danger" id="replay">Replay</button>
+        <p>Correct Answers: ${correct}</p>
         <p>Incorrect Answers: ${incorrect}</p>
         <p>Unanswered Questions: ${unanswered}</p>
-        <button type="button" class="btn btn-outline-danger" id="replay">Replay</button>`
+        <img src="./assets/images/billy.gif" id="final-image"/>`
         $("#game-section").html(results);
     }
 
@@ -178,19 +173,27 @@ $(document).ready(function() {
         //if player selects correct answer show screen congratulating them
         if (status === "correct") {
             $("#game-section").html(`<p>You chose the correct answer!</p>
-            <p>"${correctAnswer}"</p>`)
+            <p>"${correctAnswer}"</p>
+            <img src="${images[questionCount]}"/>`)
         } 
         
         //if player selects wrong answer show screen telling them the answer is wrong and display correct answer
         if (status === "incorrect") {
             $("#game-section").html(`<p>Sorry, wrong answer!</p>
-            <p>The correct answer is: "${correctAnswer}"</p>`)
+            <p>The correct answer is: "${correctAnswer}"</p>
+            <img src="${images[questionCount]}"/>`)
         } 
         
         //if player doesn't select an answer before the time runs out display text telling them time's up and showing the correct answer
         if (status === "unanswered") {
             $("#game-section").html(`<p>Time's up!</p>
-            <p>The correct answer is: "${correctAnswer}"</p>`)
+            <p>The correct answer is: "${correctAnswer}"</p>
+            <img src="${images[questionCount]}"/>`)
         }
     }
+
+    function imageDisplay() {
+        $("#game-section").html(`<img src="${images[questionCount]}"/>`)
+    }
+
 })

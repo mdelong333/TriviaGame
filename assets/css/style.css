@@ -52,6 +52,7 @@ p {
     border-color: #5E0A0A;
     color: #5E0A0A;
     background-color: rgba(245, 245, 245, 0.836);
+    margin: 20px;
 }
 
 #replay:hover {
