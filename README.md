@@ -17,3 +17,6 @@
 * The final screen will show the total number of your correct, incorrect, or unanswered questions
 
 * Replay to increase your horror trivia knowledge ;)
+
+## Game Link
+https://mdelong333.github.io/TriviaGame/
